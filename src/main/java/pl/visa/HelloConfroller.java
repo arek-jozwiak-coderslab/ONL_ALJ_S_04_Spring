@@ -4,10 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/hello")
@@ -24,8 +25,11 @@ public class HelloConfroller {
 
     @GetMapping("/ok")
 
-    public String ok() {
-        logger.debug("asdasdas {} ", "aaa");
+    public String ok(HttpServletRequest request, @RequestParam int age) {
+        int newAge = age + 12;
+        request.getHeader("aasdasd");
+        logger.debug("newAge:  {} ", newAge);
+
         return "ok";
     }
 }

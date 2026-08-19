@@ -7,7 +7,7 @@ import pl.visa.beans.MessageSender;
 public class SpringDiApplication {
     public static void main(String[] args) {
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfigSimpe.class);
 
         HelloWorld bean = context.getBean(HelloWorld.class);
         bean.hello();
