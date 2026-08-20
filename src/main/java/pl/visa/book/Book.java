@@ -1,6 +1,8 @@
 package pl.visa.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -14,8 +16,10 @@ public class Book {
     private int ratingBook;
     private String description;
 
+    @JsonIgnore
     @Column(name = "created_on")
     private LocalDateTime createdOn;
+    @JsonIgnore
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
