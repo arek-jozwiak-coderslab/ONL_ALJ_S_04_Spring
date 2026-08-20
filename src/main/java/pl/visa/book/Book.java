@@ -1,5 +1,6 @@
 package pl.visa.book;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,7 @@ public class Book {
     private int ratingBook;
     private String description;
 
-    @JsonIgnore
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")
     private LocalDateTime createdOn;
     @JsonIgnore
