@@ -13,10 +13,12 @@ public class BookController {
 
     private final BookDao bookDao;
     private final PublisherDao publisherDao;
+    private final BookRepository bookRepository;
 
-    public BookController(BookDao bookDao, PublisherDao publisherDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, BookRepository bookRepository) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/add")
@@ -29,11 +31,13 @@ public class BookController {
         Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setPublisher(publisher);
+        
+
         bookDao.saveBook(book);
 
         Book byId = bookDao.findById(1);
         System.out.println(byId.getId());
-        byId.setRatingBook(12);
+        byId.setRating(12);
         bookDao.update(byId);
         return "ok";
     }
