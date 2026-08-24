@@ -14,7 +14,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private int ratingBook;
+    private int rating;
     private String description;
 
     @ManyToOne
@@ -48,12 +48,28 @@ public class Book {
     @Transient
     private String combinedName;
 
-    public int getRatingBook() {
-        return ratingBook;
+    public Long getId() {
+        return id;
     }
 
-    public void setRatingBook(int rating) {
-        this.ratingBook = rating;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {
@@ -86,21 +102,5 @@ public class Book {
 
     public void setCombinedName(String combinedName) {
         this.combinedName = combinedName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

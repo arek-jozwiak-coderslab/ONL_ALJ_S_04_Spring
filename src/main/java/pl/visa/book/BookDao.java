@@ -35,4 +35,10 @@ public class BookDao {
         Query selectBFromBookB = entityManager.createQuery("select b from Book b", Book.class);
         return selectBFromBookB.getResultList();
     }
+
+    public List<Book> findAllByRating(int rating){
+        Query selectBFromBookB = entityManager.createQuery("select b from Book b where b.rating = :rat", Book.class);
+        selectBFromBookB.setParameter("rat", rating);
+        return selectBFromBookB.getResultList();
+    }
 }
