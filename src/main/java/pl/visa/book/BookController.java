@@ -12,15 +12,23 @@ import java.util.List;
 public class BookController {
 
     private final BookDao bookDao;
+    private final PublisherDao publisherDao;
 
-    public BookController(BookDao bookDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
 
     @GetMapping("/add")
     public String add() {
+
+        Publisher publisher = new Publisher();
+        publisher.setName("PWN");
+        publisherDao.save(publisher);
+
         Book book = new Book();
         book.setTitle("Thinking in Java");
+        book.setPublisher(publisher);
         bookDao.saveBook(book);
 
         Book byId = bookDao.findById(1);

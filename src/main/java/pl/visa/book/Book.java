@@ -17,12 +17,23 @@ public class Book {
     private int ratingBook;
     private String description;
 
+    @ManyToOne
+    private Publisher publisher;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")
     private LocalDateTime createdOn;
     @JsonIgnore
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     @PrePersist
     public void prePersist() {
