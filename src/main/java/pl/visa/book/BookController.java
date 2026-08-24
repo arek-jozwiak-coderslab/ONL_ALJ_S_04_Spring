@@ -33,7 +33,7 @@ public class BookController {
         book.setPublisher(publisher);
         
 
-        bookDao.saveBook(book);
+       bookRepository.save(book);
 
         Book byId = bookDao.findById(1);
         System.out.println(byId.getId());
@@ -55,7 +55,7 @@ public class BookController {
 
     @GetMapping("/all")
     public List<Book> allBooks() {
-        return bookDao.findAll();
+        return bookRepository.findAll();
     }
 
 }

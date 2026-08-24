@@ -2,8 +2,6 @@ package pl.visa.book;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Publisher {
     @Id
