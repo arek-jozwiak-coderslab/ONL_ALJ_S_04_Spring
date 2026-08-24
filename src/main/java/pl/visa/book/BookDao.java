@@ -3,6 +3,7 @@ package pl.visa.book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -32,8 +33,14 @@ public class BookDao {
     }
 
     public List<Book> findAll(){
-        Query selectBFromBookB = entityManager.createQuery("select b from Book b", Book.class);
+        TypedQuery<Book> selectBFromBookB = entityManager.createQuery("select b from Book b", Book.class);
         return selectBFromBookB.getResultList();
+    }
+
+    public List<Book> findAll2(){
+        List<Book> books = entityManager.createQuery("select b from Book b", Book.class)
+                .getResultList();
+        return books;
     }
 
     public List<Book> findAllByRating(int rating){
@@ -41,4 +48,5 @@ public class BookDao {
         selectBFromBookB.setParameter("rat", rating);
         return selectBFromBookB.getResultList();
     }
+
 }
