@@ -1,0 +1,29 @@
+### Movie API Requests
+
+@baseUrl = http://localhost:8080
+
+### Add new movie
+POST {{baseUrl}}/movie
+Content-Type: application/json
+
+{
+  "id": null,
+  "title": "Asterix i obelix Misja Kleopatra"
+}
+
+### Get all movies
+GET {{baseUrl}}/movie
+
+### Get movie by id
+GET {{baseUrl}}/movie/1
+
+### Update movie
+PUT {{baseUrl}}/movie/1
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### Delete movie
+DELETE {{baseUrl}}/movie/1

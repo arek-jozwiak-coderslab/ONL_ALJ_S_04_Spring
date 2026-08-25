@@ -1,0 +1,8 @@
+@baseUrl = http://localhost:8080
+
+
+
+### Get all students
+GET {{baseUrl}}/student/
+
+
