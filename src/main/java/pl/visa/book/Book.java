@@ -20,12 +20,23 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
+    @ManyToOne
+    private Category category;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_on")
     private LocalDateTime createdOn;
     @JsonIgnore
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Publisher getPublisher() {
         return publisher;
