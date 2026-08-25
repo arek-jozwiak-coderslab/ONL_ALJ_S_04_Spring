@@ -1,4 +1,4 @@
-package pl.visa.student;
+package pl.visa.student.dto;
 
 import lombok.Getter;
 import lombok.Setter;

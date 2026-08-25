@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.visa.student.dto.StudentDTO;
 
 import java.util.List;
 
@@ -12,18 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
     @GetMapping("/")
     public List<StudentDTO> list() {
-        return studentRepository.findAll().
-                stream().
-                map(s -> {
-                    StudentDTO studentDTO = new StudentDTO();
-                    studentDTO.setId(s.getId());
-                    studentDTO.setFirstName(s.getFirstName());
-                    studentDTO.setLastName(s.getLastName());
-                    return studentDTO;
-                }).toList();
+        return studentService.findAll();
     }
 }
