@@ -1,14 +1,16 @@
 package pl.visa.book;
 
-import lombok.ToString;
-import lombok.extern.java.Log;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/book")
@@ -17,32 +19,44 @@ public class BookController {
 
     private final BookDao bookDao;
     private final PublisherDao publisherDao;
-    private final BookRepository bookRepository;
+    private final BookService bookService;
+    private final Validator validator;
 
-    public BookController(BookDao bookDao, PublisherDao publisherDao, BookRepository bookRepository) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, BookService bookService, Validator validator) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
-        this.bookRepository = bookRepository;
+        this.bookService = bookService;
+        this.validator = validator;
     }
 
     @GetMapping("/add")
     public String add() {
 
         Publisher publisher = new Publisher();
-        publisher.setName("PWN");
-        publisherDao.save(publisher);
+        publisher.setName("p");
 
-        Book book = new Book();
-        book.setTitle("Thinking in Java");
-        book.setPublisher(publisher);
-        
+        Set<ConstraintViolation<Publisher>> validate = validator.validate(publisher);
+        if (validate.isEmpty()) {
+            publisherDao.save(publisher);
 
-       bookRepository.save(book);
+            Book book = new Book();
+            book.setTitle("Thinking in Java");
+            book.setPublisher(publisher);
 
-        Book byId = bookDao.findById(1);
-        System.out.println(byId.getId());
-        byId.setRating(12);
-        bookDao.update(byId);
+
+            bookService.save(book);
+
+            Book byId = bookDao.findById(1);
+            System.out.println(byId.getId());
+            byId.setRating(12);
+            bookDao.update(byId);
+        }else {
+            for (ConstraintViolation<Publisher> pcv : validate) {
+                log.info("error w: {} , message {}" , pcv.getPropertyPath(), pcv.getMessage() );
+            }
+        }
+
+
         return "ok";
     }
 
@@ -59,7 +73,7 @@ public class BookController {
 
     @GetMapping("/all")
     public List<Book> allBooks() {
-        return bookRepository.findAll();
+        return bookService.findAll();
     }
 
 }
